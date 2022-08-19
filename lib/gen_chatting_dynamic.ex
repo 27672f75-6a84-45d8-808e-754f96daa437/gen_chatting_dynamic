@@ -1,16 +1,13 @@
 defmodule GenChattingDynamic do
   use GenServer
 
-  def start_link(_init_arg) do
-    GenServer.start_link(__MODULE__, [], name: __MODULE__)
+  def start_link(init_arg) do
+    room_name = init_arg[:room_name]
+    GenServer.start_link(__MODULE__, [], name: room_name)
   end
 
-  def connect() do
-    GenServer.call(__MODULE__, {:connect, self()})
-  end
-
-  def send(message) do
-    GenServer.cast(__MODULE__, {:send, message})
+  def send({room_name, message}) do
+    GenServer.cast(room_name, {:send, message})
   end
 
   @impl true
@@ -20,7 +17,7 @@ defmodule GenChattingDynamic do
 
   @impl true
   def handle_call({:connect, client_pid}, _from, state) do
-    {:reply, client_pid, [client_pid | state]}
+    {:reply, client_pid, Enum.uniq([client_pid | state])}
   end
 
   @impl true
