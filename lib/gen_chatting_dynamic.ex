@@ -3,11 +3,11 @@ defmodule GenChattingDynamic do
 
   def start_link(init_arg) do
     room_name = init_arg[:room_name]
-    GenServer.start_link(__MODULE__, [], name: room_name)
+    GenServer.start_link(__MODULE__, [], name: {:global, room_name})
   end
 
   def send({room_name, message}) do
-    GenServer.cast(room_name, {:send, message})
+    GenServer.cast({:global, room_name}, {:send, message})
   end
 
   @impl true
