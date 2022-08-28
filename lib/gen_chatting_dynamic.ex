@@ -17,7 +17,7 @@ defmodule GenChattingDynamic do
 
   @impl true
   def handle_call({:connect, client_pid}, _from, state) do
-    {:reply, client_pid, Enum.uniq([client_pid | state])}
+    {:reply, client_pid, Enum.uniq(client_pid ++ state)}
   end
 
   @impl true

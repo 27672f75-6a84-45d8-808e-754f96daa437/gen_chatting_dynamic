@@ -9,6 +9,7 @@ defmodule GenChattingDynamic.Application do
   def start(_type, _args) do
     children = [
       GenChattingDynamic.Cluster,
+      GenChattingDynamic.SimpleCache,
       GenChattingDynamic.DynamicSupervisor
     ]
 
