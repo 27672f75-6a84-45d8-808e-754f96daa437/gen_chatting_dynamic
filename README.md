@@ -1,5 +1,7 @@
 # GenChattingDynamic
 
+iex --sname `name` -S mix 명령어로 실행가능
+
 ## TODO_list
 
 1. gen_chatting 구현
